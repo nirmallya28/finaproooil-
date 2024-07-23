@@ -15,6 +15,9 @@ const FrameComponent1 = ({ className = "" }) => {
     // Handle the event here
   }, []);
 
+  // Define a global variable for the number of components
+  const numberOfComponents = 7;
+
   return (
     <section
       className={`self-stretch flex flex-row items-start justify-end pt-0 pb-[11px] pr-[26px] pl-[30px] box-border max-w-full text-left text-xl text-black font-inter ${className}`}
@@ -26,11 +29,9 @@ const FrameComponent1 = ({ className = "" }) => {
           </div>
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-[11px] max-w-full text-base">
-          <GroupComponent1 onEvent={handleGroupComponentEvent} />
-          <GroupComponent1 onEvent={handleGroupComponentEvent} />
-          <GroupComponent1 onEvent={handleGroupComponentEvent} />
-          <GroupComponent1 onEvent={handleGroupComponentEvent} />
-          <GroupComponent1 onEvent={handleGroupComponentEvent} />
+          {Array.from({ length: numberOfComponents }).map((_, index) => (
+            <GroupComponent1 key={index} onEvent={handleGroupComponentEvent} />
+          ))}
         </div>
         <div className="self-stretch flex flex-row items-start justify-between gap-[20px] mq450:flex-wrap">
           <div className="flex flex-col items-start justify-start pt-3.5 px-0 pb-0">
@@ -42,7 +43,7 @@ const FrameComponent1 = ({ className = "" }) => {
             <div className="self-stretch h-9 relative">
               <button
                 className="bg-royalblue-100 hover:bg-sky-700 rounded w-full h-full cursor-pointer z-[1]"
-               
+                onClick={onViewButtonTypeClick}
               >
                 ADD MORE
               </button>

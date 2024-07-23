@@ -1,10 +1,12 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GroupComponent1 from "./GroupComponent1";
 import PropTypes from "prop-types";
 
 const FrameComponent1 = ({ className = "" }) => {
   const navigate = useNavigate();
+  const [componentsData, setComponentsData] = useState([]);
+  const [numberOfComponents, setNumberOfComponents] = useState(4); // Initial number of components
 
   const onViewButtonTypeClick = useCallback(() => {
     navigate("/admin-dashboard");
@@ -12,11 +14,27 @@ const FrameComponent1 = ({ className = "" }) => {
 
   const handleGroupComponentEvent = useCallback((event) => {
     console.log("Event from GroupComponent1:", event);
-    // Handle the event here
+    
   }, []);
 
-  // Define a global variable for the number of components
-  const numberOfComponents = 7;
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      try {
+        const response = await fetch("BACKEND_API_URL");
+        const data = await response.json();
+        setComponentsData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleAddMoreClick = () => {
+    setNumberOfComponents(prevCount => prevCount + 1);
+  };
 
   return (
     <section
@@ -43,11 +61,11 @@ const FrameComponent1 = ({ className = "" }) => {
             <div className="self-stretch h-9 relative">
               <button
                 className="bg-royalblue-100 hover:bg-sky-700 rounded w-full h-full cursor-pointer z-[1]"
-                onClick={onViewButtonTypeClick}
+                onClick={handleAddMoreClick}
               >
                 ADD MORE
               </button>
-            </div> 
+            </div>
           </div>
         </div>
       </div>

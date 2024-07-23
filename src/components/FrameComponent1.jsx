@@ -47,7 +47,7 @@ const FrameComponent1 = ({ className = "" }) => {
               >
                 ADD MORE
               </button>
-            </div>
+            </div> 
           </div>
         </div>
       </div>

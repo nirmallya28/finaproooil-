@@ -16,7 +16,7 @@ const SimilarProjects = ({ className = "" }) => {
         ))}
       </div>
     </section>
-  );
+  ); 
 };
 
 SimilarProjects.propTypes = {
